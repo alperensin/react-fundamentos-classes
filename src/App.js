@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "./styles/global";
@@ -6,21 +6,32 @@ import Layout from "./components/Layout";
 
 import themes from "./styles/themes";
 
-export default function App() {
-  const [theme, setTheme] = useState("dark");
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const currentTheme = useMemo(() => {
-    return themes[theme] || themes.dark;
-  }, [theme]);
-
-  function handleToggleTheme() {
-    setTheme((prevState) => (prevState === "dark" ? "light" : "dark"));
+    this.state = {
+      theme: "dark",
+    };
   }
 
-  return (
-    <ThemeProvider theme={currentTheme}>
-      <GlobalStyle />
-      <Layout selectedTheme={theme} onToggleTheme={handleToggleTheme} />
-    </ThemeProvider>
-  );
+  render() {
+    const { theme } = this.state;
+
+    return (
+      <ThemeProvider theme={themes[theme] || themes.dark}>
+        <GlobalStyle />
+        <Layout
+          selectedTheme={theme}
+          onToggleTheme={() => {
+            this.setState((prevState) => ({
+              theme: prevState.theme === "dark" ? "light" : "dark",
+            }));
+          }}
+        />
+      </ThemeProvider>
+    );
+  }
 }
+
+export default App;

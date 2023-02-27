@@ -1,21 +1,27 @@
 import React from "react";
 
 import { Container } from "./styles";
-import { ThemeContext } from "../../contexts/ThemeContext";
+import HOCThemeContext from "../HOCThemeContext";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.theme !== this.props.theme) {
+      console.log("Theme changed!");
+    }
+  }
+
   render() {
+    const { theme, handleToggleTheme } = this.props;
+
     return (
-      <ThemeContext.Consumer>
-        {({ theme, handleToggleTheme }) => (
-          <Container>
-            <h1>JStack's Blog</h1>
-            <button onClick={handleToggleTheme} type="button">
-              {theme === "dark" ? "🌞" : "🌚"}
-            </button>
-          </Container>
-        )}
-      </ThemeContext.Consumer>
+      <Container>
+        <h1>JStack's Blog</h1>
+        <button onClick={handleToggleTheme} type="button">
+          {theme === "dark" ? "🌞" : "🌚"}
+        </button>
+      </Container>
     );
   }
 }
+
+export default HOCThemeContext(Header);

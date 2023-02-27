@@ -3,14 +3,20 @@ import React, { createContext } from "react";
 export const ThemeContext = createContext({});
 
 export class ThemeProvider extends React.Component {
-  state = {
-    theme: "dark",
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    this.setState({
-      theme: JSON.parse(localStorage.getItem("theme")) || "dark",
-    });
+    let theme = "dark";
+
+    try {
+      theme = JSON.parse(localStorage.getItem("theme"));
+    } catch (error) {
+      console.log(error);
+    }
+
+    this.state = {
+      theme,
+    };
   }
 
   handleToggleTheme = () => {

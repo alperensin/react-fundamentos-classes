@@ -12,6 +12,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public", "index.html"),
       inject: "body",
+      publicPath: "/",
     }),
     new CleanWebpackPlugin(),
   ],
@@ -53,5 +54,6 @@ module.exports = {
   },
   devServer: {
     port: 3000,
+    historyApiFallback: true,
   },
 };

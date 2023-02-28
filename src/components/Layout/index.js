@@ -1,8 +1,10 @@
 import React from "react";
+import { BrowserRouter, Link } from "react-router-dom";
 
 import Header from "../Header";
-import PostsList from "../PostsList";
 import Footer from "../Footer";
+import Routes from "../../Router";
+import { Nav } from "./styles";
 
 export default class Layout extends React.Component {
   // executed when component is mounted
@@ -22,13 +24,18 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <>
+      <BrowserRouter>
         {/* { simulating an error in the child component and receiving it in componentDidCatch} */}
         {/* {undefined.map((item) => item)} */}
         <Header />
-        <PostsList />
+        <Nav>
+          <Link to="/">Home</Link>
+          <Link to="/posts">Posts</Link>
+          <Link to="/posts/123456">Post</Link>
+        </Nav>
+        <Routes />
         <Footer />
-      </>
+      </BrowserRouter>
     );
   }
 }

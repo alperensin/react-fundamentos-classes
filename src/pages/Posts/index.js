@@ -1,11 +1,11 @@
 import React from "react";
-
 import { Container } from "./styles";
+
 import Post from "./Post";
 
 import posts from "./posts";
 
-export default class PostsList extends React.Component {
+export default class Posts extends React.Component {
   render() {
     return (
       <Container>
